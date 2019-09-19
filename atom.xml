@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Y&amp;T</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://yxq9603.github.io/"/>
+  <updated>2019-09-19T08:40:59.107Z</updated>
+  <id>https://yxq9603.github.io/</id>
+  
+  <author>
+    <name>Y&amp;T</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>本地项目上传Github</title>
+    <link href="https://yxq9603.github.io/2019/09/18/%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0Github/"/>
+    <id>https://yxq9603.github.io/2019/09/18/本地项目上传Github/</id>
+    <published>2019-09-18T05:50:23.000Z</published>
+    <updated>2019-09-19T08:40:59.107Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1. 前期准备"></a>1. 前期准备</h1><blockquote><ul><li>下载Git并配置SSH key</li></ul></blockquote><h2 id="1-1-配置SSH-key"><a href="#1-1-配置SSH-key" class="headerlink" title="1.1 配置SSH key"></a>1.1 配置SSH key</h2><p>使用SSH key来解决本地和服务器的连接问题。<br>使用Git bash执行命令：</p><blockquote><p>&amp; cd ~/. ssh # 检查本机已存在的ssh密钥  </p></blockquote><p>如果提示：No such file or directory 说明你是第一次使用git。  </p><blockquote><p>&amp; ssh–keygen -t rsa -C “<a href="mailto:xxx@xxx.com" target="_blank" rel="noopener">xxx@xxx.com</a>“ # 填入自己github所用邮箱</p></blockquote><p>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：<br><img src="/2019/09/18/本地项目上传Github/2.png" title="配置SSH"><br>将复制的内容填入key,保存。</p><h2 id="1-2-测试"><a href="#1-2-测试" class="headerlink" title="1.2 测试"></a>1.2 测试</h2><blockquote><p>&amp; ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a> # 注意邮箱地址不用改  </p></blockquote><p>如果提示Are you sure you want to continue connecting (yes/no)?，输入yes，然后会看到：</p><blockquote><p>Hi yxq9603! You’ve successfully authenticated, but GitHub does not provide shell access.  </p></blockquote><p>看到这个信息说明SSH已配置成功！  </p><p>此时你还需要配置：  </p><blockquote><p>$ git config –global user.name “liuxianan” # 你的github用户名，非昵称<br>$ git config –global user.email  “<a href="mailto:xxx@qq.com" target="_blank" rel="noopener">xxx@qq.com</a>“ # 填写你的github注册邮箱</p></blockquote><h1 id="2-新建仓库"><a href="#2-新建仓库" class="headerlink" title="2. 新建仓库"></a>2. 新建仓库</h1><p>如图新建仓库<br><img src="/2019/09/18/本地项目上传Github/1.png" title="创建仓库">  </p><p>在跳转页面按如下复制仓库地址<br><img src="/2019/09/18/本地项目上传Github/3.png" title="复制仓库地址"><br><img src="/2019/09/18/本地项目上传Github/4.png" title="复制仓库地址"> </p><h1 id="3-本地操作"><a href="#3-本地操作" class="headerlink" title="3. 本地操作"></a>3. 本地操作</h1><h2 id="3-1-方法一"><a href="#3-1-方法一" class="headerlink" title="3.1 方法一"></a>3.1 方法一</h2><p>在要上传的项目文件下打开Git bash，执行：  </p><blockquote><p>&amp; git init<br>&amp; git add .<br>&amp; git commit -m”备注信息”    </p></blockquote><p>(首次使用)关联本地和远程仓库：</p><blockquote><p>&amp; git remote add origin <a href="https://github.com/yxq9603/test.git" target="_blank" rel="noopener">https://github.com/yxq9603/test.git</a> </p></blockquote><p>关联成功后，可以将内容推送到远程仓库：  </p><blockquote><p>&amp; git push -u origin master # 首次加 -u 之后可以不加</p></blockquote><p>如报错:<br><img src="/2019/09/18/本地项目上传Github/5.png" title="报错信息"><br>执行：</p><blockquote><p>&amp; git pull –rebase origin master  </p></blockquote><p>再次push</p><h2 id="3-2-方法二"><a href="#3-2-方法二" class="headerlink" title="3.2 方法二"></a>3.2 方法二</h2><p>在要上传的项目文件下打开Git bash，把远程仓库克隆到本地，执行：</p><blockquote><p>&amp; git clone <a href="https://github.com/yxq9603/Mahjong.git" target="_blank" rel="noopener">https://github.com/yxq9603/Mahjong.git</a>  </p></blockquote><p>这个步骤以后你的本地项目文件夹下面就会多出个文件夹，该文件夹名即为你github上面的项目名,把本地项目文件夹下的所有文件（除了新多出的那个文件夹不用），其余都复制到那个新多出的文件夹下<br><img src="/2019/09/18/本地项目上传Github/6.png" title="本地克隆仓库"><br>进入Mahjong文件夹</p><blockquote><p>&amp; cd Mahjong</p></blockquote><p>执行：   </p><blockquote><p>&amp; git add .<br>&amp; git commit -m”备注信息”<br>&amp; git push -u origin master # 首次执行需要输入Github账号密码</p></blockquote><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a href="https://blog.csdn.net/u014135752/article/details/79951802" target="_blank" rel="noopener">参考</a></h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;1-前期准备&quot;&gt;&lt;a href=&quot;#1-前期准备&quot; class=&quot;headerlink&quot; title=&quot;1. 前期准备&quot;&gt;&lt;/a&gt;1. 前期准备&lt;/h1&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;下载Git并配置SSH key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/bloc
+      
+    
+    </summary>
+    
+      <category term="Github" scheme="https://yxq9603.github.io/categories/Github/"/>
+    
+    
+      <category term="Github" scheme="https://yxq9603.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于Github搭建博客</title>
+    <link href="https://yxq9603.github.io/2019/09/18/%E5%9F%BA%E4%BA%8EGithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://yxq9603.github.io/2019/09/18/基于Github搭建博客/</id>
+    <published>2019-09-18T04:40:42.000Z</published>
+    <updated>2019-09-19T08:40:59.107Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>自行注册或安装以下条目：</p><blockquote><ul><li><a href="https://github.com" target="_blank" rel="noopener">Github</a>账号</li><li><a href="http://nodejs.cn" target="_blank" rel="noopener">Node.js</a>(配套自动安装npm)，推荐使用<a href="https://www.runoob.com/w3cnote/nvm-manager-node-versions.html" target="_blank" rel="noopener">nvm</a>安装</li><li><a href="https://git-scm.com" target="_blank" rel="noopener">git</a></li></ul></blockquote><h1 id="2-Githut配置"><a href="#2-Githut配置" class="headerlink" title="2. Githut配置"></a>2. Githut配置</h1><h2 id="2-1-地址创建"><a href="#2-1-地址创建" class="headerlink" title="2.1 地址创建"></a>2.1 地址创建</h2><p>如图新建仓库，仓库名格式：accountname.github.io<br><img src="/2019/09/18/基于Github搭建博客/1.png" title="创建仓库"><br>之后可直接通过：xxx.github.io访问博客</p><h2 id="2-2-配置SSH-key"><a href="#2-2-配置SSH-key" class="headerlink" title="2.2 配置SSH key"></a>2.2 配置SSH key</h2><blockquote><ul><li>参考“本地项目上传Github”</li></ul></blockquote><h1 id="3-hexo安装配置"><a href="#3-hexo安装配置" class="headerlink" title="3. hexo安装配置"></a>3. hexo安装配置</h1><h2 id="3-1-hexo简介"><a href="#3-1-hexo简介" class="headerlink" title="3.1 hexo简介"></a>3.1 hexo简介</h2><p>Hexo是一个简单、快速、强大的基于 Github Pages 的博客发布工具，支持Markdown格式，有众多优秀插件和主题。  </p><p><a href="http://hexo.io" target="_blank" rel="noopener">官网</a></p><h2 id="3-2-安装"><a href="#3-2-安装" class="headerlink" title="3.2 安装"></a>3.2 安装</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;1-前言&quot;&gt;&lt;a href=&quot;#1-前言&quot; class=&quot;headerlink&quot; title=&quot;1. 前言&quot;&gt;&lt;/a&gt;1. 前言&lt;/h1&gt;&lt;p&gt;自行注册或安装以下条目：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://gith
+      
+    
+    </summary>
+    
+    
+      <category term="Github" scheme="https://yxq9603.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Y&amp;T</title>
+    <link href="https://yxq9603.github.io/2019/09/18/Y-T/"/>
+    <id>https://yxq9603.github.io/2019/09/18/Y-T/</id>
+    <published>2019-09-18T03:04:34.000Z</published>
+    <updated>2019-09-19T08:40:59.107Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="路漫漫其修远兮，吾将上下而求索"><a href="#路漫漫其修远兮，吾将上下而求索" class="headerlink" title="路漫漫其修远兮，吾将上下而求索"></a>路漫漫其修远兮，吾将上下而求索</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;路漫漫其修远兮，吾将上下而求索&quot;&gt;&lt;a href=&quot;#路漫漫其修远兮，吾将上下而求索&quot; class=&quot;headerlink&quot; title=&quot;路漫漫其修远兮，吾将上下而求索&quot;&gt;&lt;/a&gt;路漫漫其修远兮，吾将上下而求索&lt;/h1&gt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
