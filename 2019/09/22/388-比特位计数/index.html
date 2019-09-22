@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>388-比特位计数 | Y&amp;T</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回     示例 1:    输入: 2输出: [0,1,1]      示例 2:  输入: 5输出: [0,1,1,2,1,2]      进阶:     给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟">
+<meta name="keywords" content="动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="388-比特位计数">
+<meta property="og:url" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/index.html">
+<meta property="og:site_name" content="Y&amp;T">
+<meta property="og:description" content="题目 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回     示例 1:    输入: 2输出: [0,1,1]      示例 2:  输入: 5输出: [0,1,1,2,1,2]      进阶:     给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/1.png">
+<meta property="og:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/2.png">
+<meta property="og:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/3.png">
+<meta property="og:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/4.png">
+<meta property="og:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/5.png">
+<meta property="og:updated_time" content="2019-09-22T03:17:23.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="388-比特位计数">
+<meta name="twitter:description" content="题目 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回     示例 1:    输入: 2输出: [0,1,1]      示例 2:  输入: 5输出: [0,1,1,2,1,2]      进阶:     给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟">
+<meta name="twitter:image" content="https://yxq9603.github.io/2019/09/22/388-比特位计数/1.png">
+  
+    <link rel="icon" href="/images/Y&T.ico">
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+</html>
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Y&amp;T</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://github.com/yxq9603" target="_blank" class="nav-icn iconfont icon-路漫漫其修远兮，吾将上下而求索"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/categories" class="nav-menu ">CATEGORY</a>
+          
+        
+            <a href="/tags" class="nav-menu ">TAG</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">388-比特位计数</h2>
+  
+  <p class="sub">发布：Sep 22, 2019</p>
+  
+  <article class="content">
+    <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
+<p>给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回  </p>
+</blockquote>
+<blockquote>
+<p>示例 1:  </p>
+<blockquote>
+<p>输入: 2<br>输出: [0,1,1]  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: 5<br>输出: [0,1,1,2,1,2]  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>进阶:  </p>
+<blockquote>
+<ul>
+<li>给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟扫描做到吗？</li>
+<li>要求算法的空间复杂度为O(n)。</li>
+<li>你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。</li>
+</ul>
+</blockquote>
+</blockquote>
+<h1 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h1><p>遍历计算数组每个元素的二进制中1的数目  </p>
+<img src="/2019/09/22/388-比特位计数/1.png" title="代码">
+<ul>
+<li>时间复杂度为O(n*sizeof(integer))  </li>
+</ul>
+<h1 id="官方解题思路"><a href="#官方解题思路" class="headerlink" title="官方解题思路"></a>官方解题思路</h1><h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><img src="/2019/09/22/388-比特位计数/2.png" title="代码">  
+<ul>
+<li>其中：<blockquote>
+<p>x &amp;= x - 1<br>表示：x = x &amp; (x-1)<br>因为由 n 和 n-1 的二进制表示可知，n 的最末位1及之后位和 n-1 的对应位总是相反，且 &amp;（与） 之后，最末位1变为0，其他位不变，按照上述算法则可统计出 n 中1的个数  </p>
+</blockquote>
+</li>
+<li>时间复杂度：O(nk)。对于每个整数 x，我们需要 O(k) 次操作，其中 k 是 x 的位数。</li>
+<li>空间复杂度：O(n)。 我们需要 O(n) 的空间来存储计数结果。如果排除这一点，就只需要常数空间。  </li>
+</ul>
+<h2 id="方法二：动态规划-最高有效位"><a href="#方法二：动态规划-最高有效位" class="headerlink" title="方法二：动态规划 + 最高有效位"></a>方法二：动态规划 + 最高有效位</h2><ul>
+<li>直觉<br>利用已有的计数结果来生成新的计数结果  </li>
+<li>算法<img src="/2019/09/22/388-比特位计数/3.png" title="表格">
+根据表中十进制和二进制可知：  <blockquote>
+<ul>
+<li>2-3 由 0-1 二进制最高有效位加1而来  </li>
+<li>4-7 由 0-3 二进制最高有效位加1而来  </li>
+<li>8-16 由 0-7 二进制最高有效位加1而来  </li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>可得：<br><img src="/2019/09/22/388-比特位计数/4.png" title="表达式">  </p>
+<p>代码：<br><img src="/2019/09/22/388-比特位计数/5.png" title="代码"><br>复杂度分析：  </p>
+<ul>
+<li>时间复杂度：O(n)</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+
+  </article>
+  <footer class="f-cf">
+    
+    
+      <a href="/2019/09/18/本地项目上传Github/" class="link f-fr">本地项目上传Github▷▷▷</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  Email：yxq9603@163.com
+  
+    
+      
+        · <a href="https://github.com/yxq9603" target="_blank" class="nav-icn">路漫漫其修远兮，吾将上下而求索</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Y&amp;T</span>
+</footer>
+  </div>
+</body>
+</html>
